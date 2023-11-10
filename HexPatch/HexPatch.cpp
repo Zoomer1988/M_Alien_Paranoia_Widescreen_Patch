@@ -18,7 +18,7 @@ std::wstring openFileDialog() {
     ofn.lpstrFilter = L"Main game executable (alien.exe)\0alien.exe\0";
     ofn.lpstrFile = szFileName;
     ofn.nMaxFile = sizeof(szFileName) / sizeof(wchar_t);
-    ofn.lpstrTitle = L"Select a File";
+    ofn.lpstrTitle = L"Select alien.exe located in the game directory...";
     ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
     if (GetOpenFileNameW(&ofn))
@@ -29,7 +29,7 @@ std::wstring openFileDialog() {
 
 std::string getHexSequenceFromUser() {
     std::string hexSequence;
-    std::wcout << L"Choose the desired aspect ratio:\n1 - 16:9, 2 - 16:10, or 3 - 21:9 ): ";
+    std::wcout << L"Choose the desired aspect ratio:\n1 - 16:9, 2 - 16:10, or 3 - 21:9 and press Enter: ";
     int choice;
     std::cin >> choice;
 
@@ -47,6 +47,7 @@ std::string getHexSequenceFromUser() {
         hexSequence = "";
         break;
     }
+    std::wcout << L"--------------------" << std::endl;
     return hexSequence;
 }
 
@@ -96,7 +97,7 @@ void replaceHexSequence(const std::wstring& filePath, const std::string& searchH
         std::copy(fileContents.begin(), fileContents.end(), std::ostreambuf_iterator<char>(outputFile));
         outputFile.close();
 
-        std::wcout << L"Hex sequence found and replaced successfully.\nBackup created: " << backupPath << std::endl;
+        std::wcout << L"Hex sequence found and replaced successfully.\nBackup created: " << backupPath << L"\n\nNote, that only the 3D aspect ratio is patched. Menu and hud elemens will remain stetched.\n\nIf you plan on using resolutions more than 1920 pixels wide,\nyou will also need a DirectX wrapper like dgVoodoo as the game may fail to launch.\n\nTo select the appropriate screen resolution, use the Setup.exe utility located in the game directory.\nThe in-game menu won't display widescreen modes.\n\nHave fun!" << std::endl;
     }
     else {
         std::wcout << L"Hex sequence not found in the file. No changes made. Exiting." << std::endl;
@@ -105,8 +106,10 @@ void replaceHexSequence(const std::wstring& filePath, const std::string& searchH
 
 
 int main() {
+    // Switching the console mode and the output code page in case we will need to printout a path containing unicode characters
     SetConsoleOutputCP(CP_UTF8);
     _setmode(_fileno(stdout), _O_U16TEXT);
+    std::wcout << L"Welcome!\nThis is a widescreen aspect ratio patch for the game M: Alien Paranoia.\nIt is compatible with any version of the game.\nMain game executable 'alien.exe' will be patched and a backup file will be created in the same directory.\nIf the game is in the 'Program Files' directory, run the patcher as Administrator.\n--------------------" << std::endl;
     std::string searchHex = "ABAAAA3F"; // Hex value for 4:3 aspect ratio - default in the game
 
     std::string replaceHex = getHexSequenceFromUser();
@@ -125,7 +128,7 @@ int main() {
     }
 
     // Wait for user input before closing the console
-    std::wcout << L"Press Enter to exit...";
+    std::wcout << L"--------------------\nPress Enter to exit...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 
