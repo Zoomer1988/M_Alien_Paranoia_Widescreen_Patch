@@ -22,8 +22,10 @@ If you intend to set a resolution wider than 1920 pixels, you will most likely n
 If you drop dgVoodoo's files into the game directory, run the setup.exe again AFTER that, so it will detect the dgVoodoo's virtual GPU and enumerate its resolutions properly.
 
 # Notes
-If the game is installed in the Program Files directory and you're running Windows Vista or newer, you will either need to run the Widescreen patch with administrative priveleges or reinstall the game to a path outside of system write-protected directories.
+If the game is installed in the Program Files directory and you're running Windows Vista or newer, you will either need to run the Widescreen patch with administrative privileges or reinstall the game to a path outside of system write-protected directories.
 
-Dont use the in-game menu to change the resolution. It won't enumerate the widscreen resolutions at all and might crash the game when changing mode. Use the 'Setup.exe' utility located in the game directory.
+Don't use the in-game menu to change the resolution. It won't enumerate the widescreen resolutions at all and might crash the game when changing mode. Use the 'Setup.exe' utility located in the game directory.
 
 Every aspect ratio was tested and the game seems to run properly with any of them.
+
+If you want to avoid using this patch, you can do the same manually with hex editor. Replace "AB AA AA 3F" (4:3) sequence to either "39 8E E3 3F" (16:9), "CD CC CC 3F" (16:10), "8E E3 18 40" (21:9), or any other required.
