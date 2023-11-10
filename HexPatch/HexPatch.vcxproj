@@ -24,6 +24,7 @@
     <ProjectGuid>{fc6844a4-c99b-4d7e-a006-2336cb461073}</ProjectGuid>
     <RootNamespace>HexPatch</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>M_Alien_Paranoia_Widescreen_Patch</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
